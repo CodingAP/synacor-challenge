@@ -2,10 +2,21 @@
   "name": "synacor-challenge",
   "version": "1.0.0",
   "description": "The Synacor Challenge in JS",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodingAP/synacor-challenge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CodingAP/synacor-challenge/issues"
+  },
+  "homepage": "https://github.com/CodingAP/synacor-challenge#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
 }
