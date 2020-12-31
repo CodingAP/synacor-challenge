@@ -11,6 +11,7 @@ class SynacorChallenge {
         this.programCounter = 0;
         this.args = [];
         this.currentInput = '';
+        this.debug = false;
         
         let program = fs.readFileSync('./src/challenge.bin');
         for (let i = 0; i < this.memory.length; i++) {
@@ -24,6 +25,9 @@ class SynacorChallenge {
                 callback: synacor => {
                     synacor.halted = true;
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -31,6 +35,9 @@ class SynacorChallenge {
                 callback: synacor => {
                     synacor.setValue(synacor.args[0], synacor.getValue(synacor.args[1]));
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -38,6 +45,9 @@ class SynacorChallenge {
                 callback: synacor => {
                     synacor.stack.push(synacor.getValue(synacor.args[0]));
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -45,6 +55,9 @@ class SynacorChallenge {
                 callback: synacor => {
                     synacor.setValue(synacor.args[0], synacor.stack.pop());
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -53,6 +66,9 @@ class SynacorChallenge {
                     let value = synacor.getValue(synacor.args[1]) == synacor.getValue(synacor.args[2]);
                     synacor.setValue(synacor.args[0], value ? 1 : 0);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -61,6 +77,9 @@ class SynacorChallenge {
                     let value = synacor.getValue(synacor.args[1]) > synacor.getValue(synacor.args[2]);
                     synacor.setValue(synacor.args[0], value ? 1 : 0);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -68,6 +87,9 @@ class SynacorChallenge {
                 callback: synacor => {
                     synacor.programCounter = synacor.getValue(synacor.args[0]);
                     return true;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -78,6 +100,9 @@ class SynacorChallenge {
                         return true;
                     }
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -88,6 +113,9 @@ class SynacorChallenge {
                         return true;
                     }
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -96,6 +124,9 @@ class SynacorChallenge {
                     let value = synacor.getValue(synacor.args[1]) + synacor.getValue(synacor.args[2]);
                     synacor.setValue(synacor.args[0], value % 32768);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -104,6 +135,9 @@ class SynacorChallenge {
                     let value = synacor.getValue(synacor.args[1]) * synacor.getValue(synacor.args[2]);
                     synacor.setValue(synacor.args[0], value % 32768);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -112,6 +146,9 @@ class SynacorChallenge {
                     let value = synacor.getValue(synacor.args[1]) % synacor.getValue(synacor.args[2]);
                     synacor.setValue(synacor.args[0], value);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -120,6 +157,9 @@ class SynacorChallenge {
                     let value = synacor.getValue(synacor.args[1]) & synacor.getValue(synacor.args[2]);
                     synacor.setValue(synacor.args[0], value);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -128,6 +168,9 @@ class SynacorChallenge {
                     let value = synacor.getValue(synacor.args[1]) | synacor.getValue(synacor.args[2]);
                     synacor.setValue(synacor.args[0], value);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -136,6 +179,9 @@ class SynacorChallenge {
                     let value = ~synacor.getValue(synacor.args[1]) & 0x7fff;
                     synacor.setValue(synacor.args[0], value);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -144,6 +190,9 @@ class SynacorChallenge {
                     let value = synacor.memory[synacor.getValue(synacor.args[1])];
                     synacor.setValue(synacor.args[0], value);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -152,6 +201,9 @@ class SynacorChallenge {
                     let value = synacor.getValue(synacor.args[1]);
                     synacor.setValue(synacor.getValue(synacor.args[0]), value);
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -160,6 +212,9 @@ class SynacorChallenge {
                     synacor.stack.push(synacor.programCounter + 2);
                     synacor.programCounter = synacor.getValue(synacor.args[0]);
                     return true;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -168,6 +223,9 @@ class SynacorChallenge {
                     if (synacor.stack.length == 0) synacor.halted = true;
                     else synacor.programCounter = synacor.stack.pop();
                     return true;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
@@ -175,32 +233,73 @@ class SynacorChallenge {
                 callback: synacor => {
                     process.stdout.write(String.fromCharCode(synacor.getValue(synacor.args[0])));
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'HALT';
                 }
             },
             {
                 length: 2,
                 callback: synacor => {
-                    if (synacor.currentInput == '') synacor.currentInput = prompt('Synacor Challenge Input: ') + '\n';
+                    if (synacor.currentInput == '') synacor.currentInput = prompt() + '\n';
                     
                     let special = {
-                        try_all: () => {
-                            synacor.currentInput = 'doorway\n';
+                        change_destination: args => {
+                            synacor.registers[7] = parseInt(args[0]);
+                            synacor.currentInput = '\n';
+                        },
+                        get_registers: args => {
+                            console.log(synacor.registers.join(','));
+                            synacor.currentInput = '\n';
+                        },
+                        save: args => {
+                            let file = `./src/saves/${args[0]}.sav`;
+                            let content = '';
+                            content += synacor.registers.join(',') + '\n';
+                            content += synacor.stack.join(',') + '\n';
+                            content += synacor.memory.join(',') + '\n';
+                            content += synacor.programCounter;
+
+                            fs.writeFileSync(file, content);
+                            console.log(`Saved ${args[0]}.sav!`)
+
+                            synacor.currentInput = '\n';
+                        },
+                        load: args => {
+                            let file = `./src/saves/${args[0]}.sav`;
+                            let content = fs.readFileSync(file).toString();
+                            let [registers, stack, memory, programCounter] = content.split('\n');
+
+                            synacor.registers = registers.split(',').map(value => parseInt(value));
+                            synacor.stack = stack.split(',').map(value => parseInt(value));
+                            synacor.memory = memory.split(',').map(value => parseInt(value));
+                            synacor.programCounter = parseInt(programCounter);
+                            
+                            console.log(`Loaded ${args[0]}.sav!`)
+
+                            synacor.currentInput = '\n';
                         }
                     }
                     
-                    if (special[synacor.currentInput.replace(/\n/, '')]) special[synacor.currentInput.replace(/\n/, '')]();
-                    else {
-                        let character = synacor.currentInput.charAt(0);
-                        synacor.currentInput = synacor.currentInput.slice(1);
-                        synacor.setValue(synacor.args[0], character.codePointAt(0));
-                    }
+                    let tokens = synacor.currentInput.replace(/\n/, '').split(' ');
+                    if (special[tokens[0]]) special[tokens[0]](tokens.slice(1));
+
+                    let character = synacor.currentInput.charAt(0);
+                    synacor.currentInput = synacor.currentInput.slice(1);
+                    synacor.setValue(synacor.args[0], character.codePointAt(0));
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'IN ';
                 }
             },
             {
                 length: 1,
                 callback: synacor => {
                     return false;
+                },
+                disassemble: synacor => {
+                    return 'NOOP';
                 }
             }
         ]
